@@ -20,9 +20,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import data.AuthViewModel
 
 @Composable
 fun SingUpScreen(
+    authViewModel: AuthViewModel,
     onNavigateToLogin:()->Unit
 ){
     var email by remember{ mutableStateOf("") }
@@ -71,6 +73,7 @@ fun SingUpScreen(
                 .padding(8.dp)
         )
         Button(onClick = {
+            authViewModel.signUp(email,password,firstName,lastName)
             email = ""
             password = ""
             firstName = ""

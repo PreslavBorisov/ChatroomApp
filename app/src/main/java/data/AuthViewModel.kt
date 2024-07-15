@@ -12,15 +12,7 @@ class AuthViewModel : ViewModel() {
     private val userRepository: UserRepository
 
 
-    object Injection {
-        private val instance: FirebaseFirestore by lazy {
-            FirebaseFirestore.getInstance()
-        }
 
-        fun instance(): FirebaseFirestore {
-            return instance
-        }
-    }
 
     init {
         userRepository = UserRepository(
@@ -35,5 +27,20 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             _authResult.value = userRepository.signUp(email, password, firstName, lastName)
         }
+    }
+
+    fun login(email: String,password: String){
+        viewModelScope.launch {
+            _authResult.value = userRepository.login(email,password)
+        }
+    }
+}
+object Injection {
+    private val instance: FirebaseFirestore by lazy {
+        FirebaseFirestore.getInstance()
+    }
+
+    fun instance(): FirebaseFirestore {
+        return instance
     }
 }
